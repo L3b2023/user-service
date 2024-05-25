@@ -1,16 +1,21 @@
 package com.br.userservice.controllers;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ReadAllUsers {
+@CrossOrigin("*")
+public class FetchUsers {
 
     @Value("${spring.datasource.url}")
     private String url_db;
@@ -21,10 +26,9 @@ public class ReadAllUsers {
     @Value("${spring.datasource.password}")
     private String password_db;
 
-    @GetMapping("/readAllUsers")
+    @GetMapping("/fetchUsers")
     @ResponseBody
     public List<String> read(){
-
         List<String> results = new ArrayList<>();
 
         try {
@@ -41,12 +45,10 @@ public class ReadAllUsers {
                 String rowData = "id: " + rowDataId + ", username: " + rowDataUsername + ", email: " + rowDataEmail;
                 results.add(rowData);
             }
-
             conn.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
-
         return results;
     }
 }

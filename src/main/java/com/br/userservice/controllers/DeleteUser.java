@@ -1,18 +1,14 @@
 package com.br.userservice.controllers;
 
-import java.sql.*;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
 public class DeleteUser {
 
     @Value("${spring.datasource.url}")

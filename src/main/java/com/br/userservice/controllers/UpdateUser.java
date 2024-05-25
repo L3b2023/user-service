@@ -1,14 +1,14 @@
 package com.br.userservice.controllers;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
 public class UpdateUser {
 
     @Value("${spring.datasource.url}")
@@ -31,6 +31,7 @@ public class UpdateUser {
             pstmt.setString(1, username);
             pstmt.setString(2, email);
             pstmt.setInt(3, id);
+
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
                 return "User updated successfully";
@@ -42,5 +43,4 @@ public class UpdateUser {
             return "Error: " + e.getMessage();
         }
     }
-
 }

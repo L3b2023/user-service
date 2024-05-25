@@ -5,14 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
 public class CreateUser {
 
     @Value("${spring.datasource.url}")
@@ -35,13 +32,12 @@ public class CreateUser {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, email);
             preparedStatement.executeUpdate();
-
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
             int userId = 0;
             if (generatedKeys.next()) {
                 userId = generatedKeys.getInt(1);
             }
-
             conn.close();
             return "user created successfully with id: " + userId;
         } catch (SQLException e){
